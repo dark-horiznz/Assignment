@@ -8,6 +8,7 @@ from sklearn.decomposition import PCA
 
 def load_data(df):
     #remove non numeric rows
+    df = pd.read_csv(df)
     df_numeric = df.apply(pd.to_numeric, errors='coerce')
     df_numeric.dropna(inplace = True , axis = 0)
     return df_numeric
