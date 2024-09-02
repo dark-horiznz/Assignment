@@ -9,9 +9,15 @@ from sklearn.decomposition import PCA
 def load_data(df):
     #remove non numeric rows
     df = pd.read_csv(df)
-    df_numeric = df.apply(pd.to_numeric, errors='coerce')
-    df_numeric.dropna(inplace = True , axis = 0)
-    return df_numeric
+    for col in df.columns:
+        for i in df[col]:
+            if type(i) == str:
+                try:
+                    i = float(i)
+                except:  
+                    print(i)
+                    df = df.drop(df[df[col] == i].index)
+    return df
 
 def scaling(df):
     scaler = StandardScaler()
@@ -28,6 +34,6 @@ def model(df):
 def plot(preds , df):
     composer = PCA(n_components=2)
     transformed = composer.fit_transform(df)
-    sns.scatterplot(x = transformed[:,0] , y = transformed[:,1] , hue = encoder_preds)
+    sns.scatterplot(x = transformed[:,0] , y = transformed[:,1] , hue = preds.flatten())
     plt.title('AutoEncoder Predicted')
     plt.savefig('anomalies_plot.png')
