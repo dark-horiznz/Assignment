@@ -5,6 +5,16 @@ from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from sklearn.decomposition import PCA
+import requests
+
+model_url = 'https://github.com/dark-horiznz/Assignment/blob/3c556c142996089c55e80da52dd3dff73e3a404c/Autoencoder.keras'
+local_path = 'my_model.keras'
+response = requests.get(model_url)
+if response.status_code == 200:
+    with open(local_path, 'wb') as file:
+        file.write(response.content)
+else:
+    print(f"Failed to download file from {url}. Status code: {response.status_code}")
 
 def load_data(df):
     #remove non numeric rows
@@ -25,7 +35,7 @@ def scaling(df):
     return df_scaled
 
 def model(df):
-    model = load_model('/Users/aditya/Desktop/assignments/Autoencoder.keras')
+    model = load_model('my_model.keras')
     preds = model.predict(df)
     preds[preds > 0.5] = 1
     preds[preds < 0.5] = 0
