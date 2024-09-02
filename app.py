@@ -13,6 +13,7 @@ def main():
         preds = model(scaled)
         plot(preds , scaled)
         st.image('anomalies_plot.png', caption='Anomaly Detection Plot')
+        st.write(f"detected {len(preds[preds == 1])} Credit Card Frauds")
 
 if __name__ == "__main__":
     main()
