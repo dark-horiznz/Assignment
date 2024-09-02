@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 from models import *
 from PIL import Image
+background_image = """
+<style>
+[data-testid="stAppViewContainer"] > .main {
+    background-image: url("https://www.pexels.com/photo/close-up-photography-two-brown-cards-259200/");
+    background-size: cover;
+    background-position: center;  
+    background-repeat: no-repeat;
+}
+</style>
+"""
+
+st.markdown(background_image, unsafe_allow_html=True)
 
 def main():
     st.title("Credit Card Transaction Anomaly Detection")
